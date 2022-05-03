@@ -1,6 +1,7 @@
 // Imports
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const routes = require('./src/routes');
 const db = require('./src/database');
 
@@ -21,10 +22,7 @@ app.use(routes);
 
 // Set not found handler
 app.use((req, res) => {
-  res.status(404).json({
-    error: 404,
-    message: 'Page not found',
-  });
+  res.sendFile(path.join(__dirname, './public/not-found.html'));
 });
 
 // Set error handler
