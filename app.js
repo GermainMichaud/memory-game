@@ -2,6 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const routes = require('./src/routes');
+const db = require('./src/database');
 
 // Set port
 const PORT = process.env.PORT || 3000;
@@ -36,8 +37,19 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server started on port ${PORT}`);
-});
+// Try connect to database before starting the server
+db.connect()
+  .then(() => {
+    // eslint-disable-next-line no-console
+    console.log('Connected to the database');
+    // Start server
+    app.listen(PORT, () => {
+      // eslint-disable-next-line no-console
+      console.log(`Server started on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log('Error connecting to the database', err);
+    process.exit(1);
+  });
