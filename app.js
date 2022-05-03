@@ -1,6 +1,7 @@
 // Imports
 require('dotenv').config();
 const express = require('express');
+const routes = require('./src/routes');
 
 // Set port
 const PORT = process.env.PORT || 3000;
@@ -13,6 +14,9 @@ app.use(express.static('public'));
 
 // Set body parser
 app.use(express.json());
+
+// Set routes
+app.use(routes);
 
 // Set not found handler
 app.use((req, res) => {
