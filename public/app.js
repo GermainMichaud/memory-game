@@ -103,8 +103,8 @@ const game = {
         `
         ${
           userInHighScores
-            ? 'Vous faites partie des 10 meilleurs scores !'
-            : 'Malheureusement vous ne faites pas partie des 10 meilleurs scores.'
+            ? 'Vous faites partie des 10 meilleurs temps !'
+            : 'Malheureusement vous ne faites pas partie des 10 meilleurs temps.'
         }
         <ul class="score-list">${highscoreList.join('')}</ul>`,
         'Rejouer',
