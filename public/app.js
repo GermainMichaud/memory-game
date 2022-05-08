@@ -14,7 +14,7 @@ const game = {
   // Time interval
   interval: null,
   // Number of cards
-  nbCards: 14, // Max 18
+  nbCards: 2, // Max 18
   // Cards
   cards: [],
   // Cards flipped
@@ -133,12 +133,11 @@ const game = {
   },
   // Format time
   formatTime(duration, withMilliseconds = false) {
+    if (withMilliseconds) {
+      return `${(duration / 1000).toFixed(2)}s`;
+    }
     const minutes = Math.floor(duration / 60000);
     const seconds = ((duration % 60000) / 1000).toFixed(0);
-    const milliseconds = (duration % 1000).toFixed(0);
-    if (withMilliseconds) {
-      return `${minutes * 60 + Number(seconds)},${milliseconds / 10}s`;
-    }
     return `${minutes < 10 ? '0' : ''}${minutes}:${
       seconds < 10 ? '0' : ''
     }${seconds}`;
@@ -157,6 +156,7 @@ const game = {
   restart() {
     game.modalEl.classList.remove('show');
     game.timerEl.style.display = 'block';
+    game.matchedCards = [];
     game.duration = 0;
     game.createBoard();
     game.startTimer();
